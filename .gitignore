@@ -1,0 +1,6 @@
+# Ignore all JavaScript files except for obfuscated files.
+src/
+
+# Local folders
+.vscode
+node_modules

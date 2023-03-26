@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countess</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/fe2811276f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header id="header">
+        <span class="left"></span>
+        <span class="center">
+            <h1>Rescue the Countess</h1>
+        </span>
+        <span class="right">
+            <button id="info-button" data-modal-target="#modal" class="no-button-style">
+                <i class="fa-solid fa-circle-info fa-xl"></i>
+            </button>
+            <button id="option-button" class="no-button-style">
+                <i class="fa-solid fa-bars fa-xl"></i>
+            </button>
+        </span>
+    </header>
+    <main id="main">
+        <div id="castle-container">
+            <div id="room-wrapper">
+                <div id="room">Room</div>
+                <table id="castle">
+                </table>
+            </div>
+        </div>
+
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <div class="title">
+                    <section id="t1" class="section-title title-one active">
+                        Introduction
+                    </section>
+                    <section id="t2" class="section-title title-two">
+                        Introduction
+                    </section>
+                    <section id="t3" class="section-title title-three">
+                        File Input
+                    </section>
+                    <section id="t4" class="section-title title-four">
+                        Example File
+                    </section>
+                    <section id="t5" class="section-title title-five">
+                        Disclaimer
+                    </section>
+                    <section id="t6" class="section-title title-six">
+                        Supplementary Information
+                    </section>
+                </div>
+                <button data-close-button class="close-button no-style-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <section id="r1" class="section section-one active">
+                    Design a world for Marco to navigate through Louser's castle. The castle may contain only up to 10
+                    rooms with warp pipes to travel between them. Each room will be the same size (N &times; N). The map
+                    should only contain the following characters:
+                    <ul>
+                        <li><span class="char">&#x2022; .</span>(period) a walkable space.</li>
+                        <li><span class="char">&#x2022; #</span>(hashtag) walls &ndash; which cannot be walked on or
+                            through.</li>
+                        <li><span class="char">&#x2022; !</span>(exclamation point) one of Louser's minions &ndash;
+                            which
+                            cannot be walked on or through.</li>
+                        <li><span class="char">&#x2022; S</span>Marco's starting location</li>
+                        <li><span class="char">&#x2022; C</span>Location of Countess Cherry</li>
+                        <li><span class="char digit">&#x2022; A digit '0' to '9' &ndash;</span> indicates a warp pipe
+                            traveling to the same spot in the room with the corresponding number.</li>
+                    </ul>
+                    You should place exactly one locatin for the Countess Cherry and exactly one starting point for
+                    Marco, although it is currently not checked. Marco can walk next to minions, but he cannot walk on
+                    top of them since he doesn't have time to fight today!
+                </section>
+                <section id="r2" class="section section-two">
+                    Rooms are to be treated as if they are surrounded by walls; treating walls and room edges as
+                    impassable terrain. Marco can discover locations North, East, South, or West from any walkable room
+                    space, but no discoveries will be made diagonally.
+                    <br><br>
+
+                    In addition, when Marco steps onto a warp pipe (digits 0-9), he will <b>only</b> be able to discover
+                    the location in the same row and column of the room corresponding to the warp pipe's number. If
+                    Marco steps on a warp pipe with digit <em>d</em>, at row and column (<em>r, c</em>), then he'll be
+                    able to discover (<em>r, c</em>) in room <em>d</em>.
+                    <br><br>
+
+                    It is possible for this to continue from warp pipe to warp pipe, if there are multiple rooms with
+                    warp pipes in the same location. If room
+                    <em>d</em> doesn't exist, then Marco will not use the warp pipe, and no new rooms will be
+                    discovered.
+                </section>
+                <section id="r3" class="section section-three">
+                    The program gets the description of the castle from a text file given by you. The first line of the
+                    input must be the letter 'M' (without the quote marks). The second line will be a single integer 1
+                    &leq; <em>R</em> &leq; 10, indicating the number of rooms. The third line will be a single integer 1
+                    &leq; <em>N</em>, indicating the size of each (and every) room of the castle (each room is N &times;
+                    N in size and all rooms are the same size).
+                    <br><br>
+
+                    After the first three lines, you may place comments to help you take notes. They must begin with
+                    '//' (without the quote marks), and they can be used to describe any noteworthy characteristics, or
+                    simply to describe the room number (indexed at 0). That is, room numbers start at 0, and go all the
+                    way up to 9.
+
+                    <br><br>
+                    The next page will show an example of a valid file input.
+                </section>
+                <section id="r4" class="section section-four">
+                    M <br>
+                    2 <br>
+                    4 <br>
+                    // castle room 0 <br>
+                    ..#. <br>
+                    .C#. <br>
+                    ###. <br>
+                    1... <br>
+                    // castle room 1 <br>
+                    0.!0 <br>
+                    !.!. <br>
+                    ..!. <br>
+                    .!.S <br>
+                </section>
+                <section id="r5" class="section section-five">
+                    This website has not been optimized for mobile usage and very large castle room sizes yet, nor does
+                    it have accessibility features. This project was intended to be a fun side project with a reasonable
+                    caslte room size, but feel free to reach out if there are some ideas you would like to see
+                    implemented! <br><br>
+
+                    One such idea is to restrict the sizes of the room. Right now, any room size greater than one (1) is
+                    a valid room size. However, room sizes that are as big as fifty (50) can cause some funky problems.
+                    Room sizes as big as one-thousand (1000) can cause the browser to slow down and become unresponsive,
+                    which can be problematic. <br><br>
+
+                    There may also be bugs with the animation part, such as the map glitching when you spam the <em>find
+                        the countess!</em> button. Again, I did not design the website to account for users wanting to
+                    break the code intentionally. If you use it as it was intended, that is you don't try to mess with
+                    the
+                    spaghetti code, then it will work nicely.
+                </section>
+                <section id="r6" class="section section-six">
+                    This project is a continuation off of my first project in my <em>Data Structures and Algorithms</em>
+                    class <a href="https://eecs281staff.github.io/eecs281.org/" target="_blank"
+                        rel="noopener noreferrer">(EECS 281)</a> at the <em>University of Michigan</em>. As cool as it
+                    is to be able to solve mazes with a simple path-finding algorithm, it would be cooler if there was
+                    such an animation of finding the path, hence why I created this project and website.
+                    <br><br>
+
+                    Since this project is still distributed to current students, the source code for the path-finding
+                    algorithm had to be obfuscated to avoid any cheating and honor code violations. If you are a current
+                    member in the EECS281 staff and have any concerns (especially since students may use it as a way to
+                    test check their program with a valid output), please contact me and I will be happy to discuss it
+                    further with you.
+                    <br><br>
+
+                    Author: Kenny Ngo <br>
+                    GitHub: <a href="https://github.com/kennyhngo" target="_blank"
+                        rel="noopener noreferrer">https://github.com/kennyhngo</a><br>
+                    LinkedIn: <a href="https://www.linkedin.com/in/khngo/" target="_blank"
+                        rel="noopener noreferrer">https://www.linkedin.com/in/khngo/</a><br>
+                    Website: <a href="https://kennyngo.com/" target="_blank"
+                        rel="noopener noreferrer">https://kennyngo.com/</a><br>
+                    Email: <a href="mailto: kngo@umich.edu">kngo@umich.edu</a>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button class="previous disable" id="previous">Previous</button>
+                <ul class="nav">
+                    <li class="active" data-cont="r1">1</li>
+                    <li data-cont="r2">2</li>
+                    <li data-cont="r3">3</li>
+                    <li data-cont="r4">4</li>
+                    <li data-cont="r5">5</li>
+                    <li data-cont="r6">6</li>
+                </ul>
+                <button class="next" id="next">Next</button>
+            </div>
+        </div>
+        <div id="overlay"></div>
+
+        <div id="options" class="slideIn">
+            <div id="input-group">
+                <section class="droparea tooltip">
+                    <span class="tooltiptext">If more than one files are selected, the file selected to drag and drop
+                        will
+                        be used.</span>
+                    <i class="far fa-regular fa-file-lines"></i>
+                    <p>Drop your .txt file here!</p>
+                </section>
+                <div class="form-group">
+                    <label for="inputfile">Or upload file instead:</label> <br>
+                    <!-- <i class="fa-solid fa-upload fa-lg"></i> -->
+                    <input type="file" id="inputfile" autocomplete="off" /> <br>
+                </div>
+            </div>
+
+            <div class="random-group">
+                <label for="generateMapButton">Or use a randomly generated map:</label>
+
+                <label for="randomRoomSlider">Number of desired rooms</label>
+                <input type="range" min="1" max="10" value="4" class="slider" id="randomRoomSlider" autocomplete="off">
+                <p>Rooms: <span id="roomSliderOutput">4</span></p>
+
+                <label for="randomRowColSlider">Number of desired rows and columns</label>
+                <input type="range" min="1" max="10" value="8" class="slider" id="randomRowColSlider"
+                    autocomplete="off">
+                <p>Rows &amp; Columns: <span id="rowcolSliderOutput">8</span></p>
+
+                <span class="button-group">
+                    <input type="button" value="generate map" id="generateMapButton" class="no-button-style"
+                        onclick="useRandomMap();">
+                </span>
+            </div>
+
+            <div id="view-group">
+                <label for="view">Choose a view:</label>
+                <label for="room-view">
+                    <input type="radio" name="viewlist" value="room-view" id="room-view" autocomplete="off"
+                        onclick="showView();">
+                    room view
+                </label>
+                <label for="castle-view">
+                    <input type="radio" name="viewlist" value="castle-view" id="castle-view" autocomplete="off"
+                        onclick="showView();">
+                    castle view
+                </label>
+            </div>
+
+            <div class="button-group">
+                <input type="button" value="find the countess !" id="findCountess" onclick="find_countess();">
+            </div>
+        </div>
+    </main>
+    <script defer src="./build/frontend.js" type="module"></script>
+    <script src="./build/backend_ob.js" type="module"></script>
+</body>
+
+</html>
